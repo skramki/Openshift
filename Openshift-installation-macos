@@ -1,0 +1,742 @@
+Last login: Tue Aug 27 09:56:49 on console
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro ~ % cd Projects 
+
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro Projects % mkdir openshift
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro Projects % cd openshift 
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift % ls
+
+Login to --> https://console.redhat.com/openshift/create/local
+Cluster List --> Create cluster --> Local --> 
+  1. Download what you need to get started
+Openshift Local 
+  MacOS   X86_64  Download OpenShift Local
+Pull secret    ## Make sure to Download secret
+Download or copy your pull secret. You'll be prompted for this information during installation.
+
+  2. Follow the documentation to install OpenShift Local
+Run crc setup to set up your host operating system for the OpenShift Local virtual machine.
+
+Then, run crc start to create a minimal OpenShift 4 cluster on your computer.
+
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift % ls -lrt
+total 0
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift % ls
+crc-macos-installer.pkg	pull-secret.txt
+
+Run "crc-macos-installer.pkg" in MacOS
+
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift % crc version
+CRC version: 2.40.0+a14925
+OpenShift version: 4.16.4
+MicroShift version: 4.16.4
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift % crc help
+CRC is a tool that manages a local OpenShift 4.x cluster optimized for testing and development purposes
+
+Usage:
+  crc [flags]
+  crc [command]
+
+Available Commands:
+  bundle      Manage CRC bundles
+  cleanup     Undo config changes
+  completion  Generate the autocompletion script for the specified shell
+  config      Modify crc configuration
+  console     Open the OpenShift Web Console in the default browser
+  delete      Delete the instance
+  help        Help about any command
+  ip          Get IP address of the running OpenShift cluster
+  oc-env      Add the 'oc' executable to PATH
+  podman-env  Setup podman environment
+  setup       Set up prerequisites for using CRC
+  start       Start the instance
+  status      Display status of the OpenShift cluster
+  stop        Stop the instance
+  version     Print version information
+
+Flags:
+  -h, --help               help for crc
+      --log-level string   log level (e.g. "debug | info | warn | error") (default "info")
+
+Use "crc [command] --help" for more information about a command.
+
+## Setup Open Shift CodeReady Containers using ( CRC in MacOS )
+
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift % crc setup
+CRC is constantly improving and we would like to know more about usage (more details at https://developers.redhat.com/article/tool-data-collection)
+Your preference can be changed manually if desired using 'crc config set consent-telemetry <yes/no>'
+Would you like to contribute anonymous usage statistics? [y/N]: y
+Thanks for helping us! You can disable telemetry with the command 'crc config set consent-telemetry no'.
+INFO Using bundle path /Users/ramakrishnansolaik/.crc/cache/crc_vfkit_4.16.4_arm64.crcbundle 
+INFO Checking if running macOS version >= 13.x    
+INFO Checking if running as non-root              
+INFO Checking if crc-admin-helper executable is cached 
+INFO Checking if running on a supported CPU architecture 
+INFO Checking if crc executable symlink exists    
+INFO Creating symlink for crc executable          
+INFO Checking minimum RAM requirements            
+INFO Check if Podman binary exists in: /Users/ramakrishnansolaik/.crc/bin/oc 
+INFO Checking if running emulated on Apple silicon 
+INFO Checking if vfkit is installed               
+INFO Checking if CRC bundle is extracted in '$HOME/.crc' 
+INFO Checking if /Users/ramakrishnansolaik/.crc/cache/crc_vfkit_4.16.4_arm64.crcbundle exists 
+INFO Getting bundle for the CRC executable        
+INFO Downloading bundle: /Users/ramakrishnansolaik/.crc/cache/crc_vfkit_4.16.4_arm64.crcbundle... 
+4.16 GiB / 4.16 GiB [---------------------------------------] 100.00% 4.13 MiB/s
+INFO Uncompressing /Users/ramakrishnansolaik/.crc/cache/crc_vfkit_4.16.4_arm64.crcbundle 
+crc.img:  31.00 GiB / 31.00 GiB [--------------------------------------] 100.00%
+oc:  119.81 MiB / 119.81 MiB [-----------------------------------------] 100.00%
+INFO Checking if old launchd config for tray and/or daemon exists 
+INFO Checking if crc daemon plist file is present and loaded 
+INFO Adding crc daemon plist file and loading it  
+INFO Checking SSH port availability               
+Your system is correctly setup for using CRC. Use 'crc start' to start the instance
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift % 
+
+## Configure Openshift CLI in MacOS
+Download Source: https://access.cdn.redhat.com/content/origin/files/sha256/78/78a707168784ee84b2505ec9f3f1785f71eaf0867b786011d47a95991d7ddefc/openshift-client-mac-4.16.8.tar.gz
+
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift % ls -lrt
+total 303240
+-rw-r--r--@ 1 ramakrishnansolaik  staff      2767 Aug 27 10:31 pull-secret.txt
+-rw-r--r--@ 1 ramakrishnansolaik  staff  90912459 Aug 27 10:31 crc-macos-installer.pkg
+-rw-r--r--@ 1 ramakrishnansolaik  staff  54091682 Aug 27 11:12 openshift-client-mac-4.16.8.tar.gz
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift % crc config set pull-secret-file $HOME/Projects/openshift/pull-secret.txt    ## Config Secret file 
+Successfully configured pull-secret-file to /Users/ramakrishnansolaik/Projects/openshift/pull-secret.txt
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift %
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift % mkdir oc
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift % mv openshift-client-mac-4.16.8.tar.gz oc 
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift % cd oc 
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro oc % ls
+openshift-client-mac-4.16.8.tar.gz
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro oc % tar -xvf openshift-client-mac-4.16.8.tar.gz
+x README.md
+x kubectl
+x oc
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro oc % ls -lrt
+total 606376
+-rw-r--r--@ 1 ramakrishnansolaik  staff        950 Aug  9 07:27 README.md
+-rwxr-xr-x@ 2 ramakrishnansolaik  staff  127961776 Aug 21 06:11 oc
+-rwxr-xr-x@ 2 ramakrishnansolaik  staff  127961776 Aug 21 06:11 kubectl
+-rw-r--r--@ 1 ramakrishnansolaik  staff   54091682 Aug 27 11:12 openshift-client-mac-4.16.8.tar.gz
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro oc % pwd
+/Users/ramakrishnansolaik/Projects/openshift/oc
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro oc % cd ../
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift % export PATH="$HOME/Projects/openshift/oc:$PATH"
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift % which oc
+/Users/ramakrishnansolaik/Projects/openshift/oc/oc
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift %
+## Configure Openshift CLI in MacOS ## END
+
+## Steps to reproduce ##
+1. Install CRC clean (crc delete ; crc cleanup ; rm -rf ~/.crc ; then install .pkg)
+2. Set proxy environment and install:
+    crc config set http-proxy http://proxy.example.com:80
+    crc config set https-proxy http://proxy.example.com:80
+    crc config set no-proxy "example.com,127.0.0.0/8,localhost,10.0.0.0/8,192.168.0.0/16,172.16.0.0/12"
+    crc config set consent-telemetry no
+    crc config set proxy-ca-file $HOME/etc/example-root.pem
+    crc config set pull-secret-file $HOME/etc/pull-secret
+    crc setup
+    crc start
+
+
+
+## CRC Start using pull-secret.txt file ##
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift % crc config view
+- consent-telemetry                     : yes
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift % crc status --log-level debug
+DEBU CRC version: 2.40.0+a14925                   
+DEBU OpenShift version: 4.16.4                    
+DEBU MicroShift version: 4.16.4                   
+DEBU Running 'crc status'                         
+CRC VM:          Running
+OpenShift:       Unreachable (v4.16.4)
+RAM Usage:       2.637GB of 10.94GB
+Disk Usage:      19.79GB of 32.68GB (Inside the CRC VM)
+Cache Usage:     38.03GB
+Cache Directory: /Users/ramakrishnansolaik/.crc/cache
+DEBU Running 'sw_vers -productVersion'            
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift % crc status --log-level debug
+DEBU CRC version: 2.40.0+a14925                   
+DEBU OpenShift version: 4.16.4                    
+DEBU MicroShift version: 4.16.4                   
+DEBU Running 'crc status'                         
+CRC VM:          Stopped
+OpenShift:       Stopped (v4.16.4)
+RAM Usage:       0B of 0B
+Disk Usage:      0B of 0B (Inside the CRC VM)
+Cache Usage:     38.03GB
+Cache Directory: /Users/ramakrishnansolaik/.crc/cache
+DEBU Running 'sw_vers -productVersion'            
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift % crc delete -f
+Deleted the instance
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift % crc status --log-level debug
+DEBU CRC version: 2.40.0+a14925                   
+DEBU OpenShift version: 4.16.4                    
+DEBU MicroShift version: 4.16.4                   
+DEBU Running 'crc status'                         
+DEBU Running 'sw_vers -productVersion'            
+Machine does not exist. Use 'crc start' to create it
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift % crc cleanup
+INFO Unloading and removing the daemon plist file 
+INFO Removing /etc/resolver/testing file          
+INFO Stopping CRC vfkit process                   
+INFO Removing CRC Specific entries from user's known_hosts file 
+INFO Removing hosts file records added by CRC     
+INFO Removing pull secret from the keyring        
+INFO Removing older logs                          
+Cleanup finished
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift % crc setup
+INFO Using bundle path /Users/ramakrishnansolaik/.crc/cache/crc_vfkit_4.16.4_arm64.crcbundle 
+INFO Checking if running macOS version >= 13.x    
+INFO Checking if running as non-root              
+INFO Checking if crc-admin-helper executable is cached 
+INFO Checking if running on a supported CPU architecture 
+INFO Checking if crc executable symlink exists    
+INFO Creating symlink for crc executable          
+INFO Checking minimum RAM requirements            
+INFO Check if Podman binary exists in: /Users/ramakrishnansolaik/.crc/bin/oc 
+INFO Checking if running emulated on Apple silicon 
+INFO Checking if vfkit is installed               
+INFO Checking if CRC bundle is extracted in '$HOME/.crc' 
+INFO Checking if /Users/ramakrishnansolaik/.crc/cache/crc_vfkit_4.16.4_arm64.crcbundle exists 
+INFO Checking if old launchd config for tray and/or daemon exists 
+INFO Checking if crc daemon plist file is present and loaded 
+INFO Adding crc daemon plist file and loading it  
+INFO Checking SSH port availability               
+Your system is correctly setup for using CRC. Use 'crc start' to start the instance
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift % 
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift % 
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift % crc status --log-level debug
+DEBU CRC version: 2.40.0+a14925                   
+DEBU OpenShift version: 4.16.4                    
+DEBU MicroShift version: 4.16.4                   
+DEBU Running 'crc status'                         
+DEBU Running 'sw_vers -productVersion'            
+Machine does not exist. Use 'crc start' to create it
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift % crc start --log-level debug -p /Users/ramakrishnansolaik/Projects/openshift/pull-secret.txt 
+DEBU CRC version: 2.40.0+a14925                   
+DEBU OpenShift version: 4.16.4                    
+DEBU MicroShift version: 4.16.4                   
+DEBU Running 'crc start'                          
+DEBU Total memory of system is 17179869184 bytes  
+DEBU No new version available. The latest version is 2.40.0 
+DEBU Checking file: /Users/ramakrishnansolaik/.crc/machines/crc/.crc-exist 
+INFO Using bundle path /Users/ramakrishnansolaik/.crc/cache/crc_vfkit_4.16.4_arm64.crcbundle 
+INFO Checking if running macOS version >= 13.x    
+DEBU Running 'sw_vers -productVersion'            
+DEBU sw_vers -productVersion is: 14.5             
+INFO Checking if running as non-root              
+INFO Checking if crc-admin-helper executable is cached 
+INFO Checking if running on a supported CPU architecture 
+DEBU GOARCH is arm64 GOOS is darwin               
+INFO Checking if crc executable symlink exists    
+INFO Checking minimum RAM requirements            
+DEBU Total memory of system is 17179869184 bytes  
+INFO Check if Podman binary exists in: /Users/ramakrishnansolaik/.crc/bin/oc 
+INFO Checking if running emulated on Apple silicon 
+INFO Checking if vfkit is installed               
+INFO Checking if old launchd config for tray and/or daemon exists 
+INFO Checking if crc daemon plist file is present and loaded 
+DEBU Running 'bash -c launchctl list | grep com.redhat.crc.daemon | awk '{print $1}'' 
+INFO Checking SSH port availability               
+DEBU Checking file: /Users/ramakrishnansolaik/.crc/machines/crc/.crc-exist 
+INFO Loading bundle: crc_vfkit_4.16.4_arm64...    
+DEBU Using secret from configuration              
+INFO Creating CRC VM for OpenShift 4.16.4...      
+DEBU Running pre-create checks...                 
+DEBU Creating machine...                          
+DEBU /Users/ramakrishnansolaik/.crc/machines/crc/crc.img is already 33285996544 bytes 
+INFO Generating new SSH key pair...               
+INFO Generating new password for the kubeadmin user 
+DEBU Created /Users/ramakrishnansolaik/.crc/machines/crc/.crc-exist 
+DEBU Machine successfully created                 
+DEBU Checking file: /Users/ramakrishnansolaik/.crc/machines/crc/.crc-exist 
+INFO Starting CRC VM for openshift 4.16.4...      
+DEBU Updating CRC VM configuration                
+DEBU Running /usr/local/crc/vfkit --cpus 4 --memory 10752 --kernel /Users/ramakrishnansolaik/.crc/cache/crc_vfkit_4.16.4_arm64/vmlinuz-5.14.0-427.26.1.el9_4.aarch64 --initrd /Users/ramakrishnansolaik/.crc/cache/crc_vfkit_4.16.4_arm64/initramfs-5.14.0-427.26.1.el9_4.aarch64.img --kernel-cmdline console=hvc0 BOOT_IMAGE=(hd0,gpt3)/boot/ostree/rhcos-2ab60fac52af987263fb2ca567a8cb3d6a7b343ecb6b1de5160d459ccd8ee0b3/vmlinuz-5.14.0-427.26.1.el9_4.aarch64 rw ostree=/ostree/boot.1/rhcos/2ab60fac52af987263fb2ca567a8cb3d6a7b343ecb6b1de5160d459ccd8ee0b3/0 ignition.platform.id=metal root=UUID=fb876b1a-2452-410a-bb09-70184d5f9218 rw rootflags=prjquota boot=UUID=0ec34bb7-44a0-4dcc-b916-f1ddf3683d53 systemd.unified_cgroup_hierarchy=1 cgroup_no_v1=all psi=1 --device virtio-serial,logFilePath=/Users/ramakrishnansolaik/.crc/machines/crc/vfkit.log --device virtio-fs,sharedDir=/Users/ramakrishnansolaik,mountTag=dir0 --device virtio-rng --device virtio-blk,path=/Users/ramakrishnansolaik/.crc/machines/crc/crc.img --device virtio-vsock,port=1024,socketURL=/Users/ramakrishnansolaik/.crc/tap.sock,listen --timesync vsockPort=1234 
+DEBU time="2024-08-27T12:20:36+08:00" level=info msg="&{4 10752 /Users/ramakrishnansolaik/.crc/cache/crc_vfkit_4.16.4_arm64/vmlinuz-5.14.0-427.26.1.el9_4.aarch64 console=hvc0 BOOT_IMAGE=(hd0,gpt3)/boot/ostree/rhcos-2ab60fac52af987263fb2ca567a8cb3d6a7b343ecb6b1de5160d459ccd8ee0b3/vmlinuz-5.14.0-427.26.1.el9_4.aarch64 rw ostree=/ostree/boot.1/rhcos/2ab60fac52af987263fb2ca567a8cb3d6a7b343ecb6b1de5160d459ccd8ee0b3/0 ignition.platform.id=metal root=UUID=fb876b1a-2452-410a-bb09-70184d5f9218 rw rootflags=prjquota boot=UUID=0ec34bb7-44a0-4dcc-b916-f1ddf3683d53 systemd.unified_cgroup_hierarchy=1 cgroup_no_v1=all psi=1 /Users/ramakrishnansolaik/.crc/cache/crc_vfkit_4.16.4_arm64/initramfs-5.14.0-427.26.1.el9_4.aarch64.img {[] false} vsockPort=1234 [virtio-serial,logFilePath=/Users/ramakrishnansolaik/.crc/machines/crc/vfkit.log virtio-fs,sharedDir=/Users/ramakrishnansolaik,mountTag=dir0 virtio-rng virtio-blk,path=/Users/ramakrishnansolaik/.crc/machines/crc/crc.img virtio-vsock,port=1024,socketURL=/Users/ramakrishnansolaik/.crc/tap.sock,listen] none://  false}" 
+DEBU time="2024-08-27T12:20:36+08:00" level=info msg="boot parameters: &{VmlinuzPath:/Users/ramakrishnansolaik/.crc/cache/crc_vfkit_4.16.4_arm64/vmlinuz-5.14.0-427.26.1.el9_4.aarch64 KernelCmdLine:console=hvc0 BOOT_IMAGE=(hd0,gpt3)/boot/ostree/rhcos-2ab60fac52af987263fb2ca567a8cb3d6a7b343ecb6b1de5160d459ccd8ee0b3/vmlinuz-5.14.0-427.26.1.el9_4.aarch64 rw ostree=/ostree/boot.1/rhcos/2ab60fac52af987263fb2ca567a8cb3d6a7b343ecb6b1de5160d459ccd8ee0b3/0 ignition.platform.id=metal root=UUID=fb876b1a-2452-410a-bb09-70184d5f9218 rw rootflags=prjquota boot=UUID=0ec34bb7-44a0-4dcc-b916-f1ddf3683d53 systemd.unified_cgroup_hierarchy=1 cgroup_no_v1=all psi=1 InitrdPath:/Users/ramakrishnansolaik/.crc/cache/crc_vfkit_4.16.4_arm64/initramfs-5.14.0-427.26.1.el9_4.aarch64.img}" 
+DEBU time="2024-08-27T12:20:36+08:00" level=info  
+DEBU time="2024-08-27T12:20:36+08:00" level=info msg="virtual machine parameters:" 
+DEBU time="2024-08-27T12:20:36+08:00" level=info msg="\tvCPUs: 4" 
+DEBU time="2024-08-27T12:20:36+08:00" level=info msg="\tmemory: 10752 MiB" 
+DEBU time="2024-08-27T12:20:36+08:00" level=info  
+DEBU time="2024-08-27T12:20:36+08:00" level=info msg="Adding virtio-serial device (logFile: /Users/ramakrishnansolaik/.crc/machines/crc/vfkit.log)" 
+DEBU time="2024-08-27T12:20:36+08:00" level=info msg="Adding virtio-fs device" 
+DEBU time="2024-08-27T12:20:36+08:00" level=info msg="Adding virtio-rng device" 
+DEBU time="2024-08-27T12:20:36+08:00" level=info msg="Adding virtio-blk device (imagePath: /Users/ramakrishnansolaik/.crc/machines/crc/crc.img)" 
+DEBU time="2024-08-27T12:20:36+08:00" level=info msg="Adding virtio-vsock device" 
+DEBU time="2024-08-27T12:20:37+08:00" level=info msg="virtual machine is running" 
+DEBU time="2024-08-27T12:20:37+08:00" level=info msg="Exposing vsock port 1024 on /Users/ramakrishnansolaik/.crc/tap.sock (listening)" 
+DEBU time="2024-08-27T12:20:37+08:00" level=info msg="Setting up host/guest time synchronization" 
+DEBU time="2024-08-27T12:20:37+08:00" level=info msg="waiting for VM to stop" 
+DEBU Waiting for machine to be running, this may take a few minutes... 
+DEBU retry loop: attempt 0                        
+DEBU Machine is up and running!                   
+INFO CRC instance is running with IP 127.0.0.1    
+DEBU Waiting until ssh is available               
+DEBU retry loop: attempt 0                        
+DEBU Running SSH command: exit 0                  
+DEBU Using ssh private keys: [/Users/ramakrishnansolaik/.crc/machines/crc/id_ecdsa /Users/ramakrishnansolaik/.crc/cache/crc_vfkit_4.16.4_arm64/id_ecdsa_crc] 
+DEBU SSH command results: err: ssh: handshake failed: read tcp 127.0.0.1:50011->127.0.0.1:2222: read: connection reset by peer, output:  
+DEBU error: Temporary error: ssh command error:
+command : exit 0
+err     : ssh: handshake failed: read tcp 127.0.0.1:50011->127.0.0.1:2222: read: connection reset by peer
+ - sleeping 1s 
+DEBU retry loop: attempt 1                        
+DEBU Running SSH command: exit 0                  
+DEBU Using ssh private keys: [/Users/ramakrishnansolaik/.crc/machines/crc/id_ecdsa /Users/ramakrishnansolaik/.crc/cache/crc_vfkit_4.16.4_arm64/id_ecdsa_crc] 
+DEBU SSH command results: err: <nil>, output:     
+INFO CRC VM is running                            
+DEBU Using root access: disable core user password 
+DEBU Running SSH command: sudo passwd --lock core 
+DEBU SSH command results: err: <nil>, output: Locking password for user core.
+passwd: Success 
+DEBU Running SSH command: cat /home/core/.ssh/authorized_keys 
+DEBU SSH command results: err: Process exited with status 1, output:  
+INFO Updating authorized keys...                  
+DEBU Creating /home/core/.ssh/authorized_keys with permissions 0644 in the CRC VM 
+DEBU Running SSH command: <hidden>                
+DEBU SSH command succeeded                        
+DEBU Running SSH command: rm /home/core/.ssh/authorized_keys.d/ignition 
+DEBU SSH command results: err: <nil>, output:     
+DEBU Using root access: Get device id             
+DEBU Running SSH command: sudo /usr/sbin/blkid -t TYPE=xfs -o device 
+DEBU SSH command results: err: <nil>, output: /dev/vda4 
+DEBU Using root access: Growing /dev/vda4 partition 
+DEBU Running SSH command: sudo /usr/bin/growpart /dev/vda 4 
+DEBU SSH command results: err: Process exited with status 1, output: NOCHANGE: partition 4 is size 63961055. it cannot be grown 
+DEBU No free space after /dev/vda4, nothing to do 
+DEBU Configuring shared directories               
+INFO Configuring shared directories               
+DEBU Using root access: Making / mutable          
+DEBU Running SSH command: sudo chattr -i /        
+DEBU SSH command results: err: <nil>, output:     
+DEBU Using root access: Creating /Users/ramakrishnansolaik 
+DEBU Running SSH command: sudo mkdir -p /Users/ramakrishnansolaik 
+DEBU SSH command results: err: <nil>, output:     
+DEBU Using root access: Making / immutable again  
+DEBU Running SSH command: sudo chattr +i /        
+DEBU SSH command results: err: <nil>, output:     
+DEBU Mounting tag dir0 at /Users/ramakrishnansolaik 
+DEBU Using root access: Mounting /Users/ramakrishnansolaik 
+DEBU Running SSH command: sudo mount -o context="system_u:object_r:container_file_t:s0" -t virtiofs dir0 /Users/ramakrishnansolaik 
+DEBU SSH command results: err: <nil>, output:     
+DEBU Using root access: make root Podman socket accessible 
+DEBU Running SSH command: sudo chmod 777 /run/podman/ /run/podman/podman.sock 
+DEBU SSH command results: err: <nil>, output:     
+DEBU Running '/usr/local/crc/crc-admin-helper-darwin rm api.crc.testing oauth-openshift.apps-crc.testing console-openshift-console.apps-crc.testing downloads-openshift-console.apps-crc.testing canary-openshift-ingress-canary.apps-crc.testing default-route-openshift-image-registry.apps-crc.testing' 
+DEBU Running '/usr/local/crc/crc-admin-helper-darwin add 127.0.0.1 api.crc.testing oauth-openshift.apps-crc.testing console-openshift-console.apps-crc.testing downloads-openshift-console.apps-crc.testing canary-openshift-ingress-canary.apps-crc.testing default-route-openshift-image-registry.apps-crc.testing' 
+DEBU Running SSH command: systemctl status ovs-configuration.service 
+DEBU SSH command results: err: Process exited with status 3, output: ○ ovs-configuration.service - Configures OVS with proper host networking configuration
+     Loaded: loaded (/etc/systemd/system/ovs-configuration.service; enabled; preset: disabled)
+     Active: inactive (dead) 
+DEBU Using root access: Executing systemctl daemon-reload command 
+DEBU Running SSH command: sudo systemctl daemon-reload 
+DEBU SSH command results: err: <nil>, output:     
+DEBU Using root access: Executing systemctl start ovs-configuration.service 
+DEBU Running SSH command: sudo systemctl start ovs-configuration.service 
+DEBU SSH command results: err: <nil>, output:     
+DEBU Using root access: Update resolv.conf file   
+DEBU Running SSH command: sudo nmcli con modify --temporary ovs-if-br-ex ipv4.dns 192.168.127.1 ipv4.dns-search crc.testing 
+DEBU SSH command results: err: <nil>, output:     
+DEBU Using root access: Executing systemctl daemon-reload command 
+DEBU Running SSH command: sudo systemctl daemon-reload 
+DEBU SSH command results: err: <nil>, output:     
+DEBU Using root access: Executing systemctl restart NetworkManager.service 
+DEBU Running SSH command: sudo systemctl restart NetworkManager.service 
+DEBU SSH command results: err: <nil>, output:     
+DEBU retry loop: attempt 0                        
+DEBU Running SSH command: host -R 3 foo.apps-crc.testing 
+DEBU SSH command results: err: <nil>, output: foo.apps-crc.testing has address 192.168.127.2 
+INFO Check internal and public DNS query...       
+DEBU Running SSH command: curl --head quay.io     
+DEBU SSH command results: err: <nil>, output: HTTP/1.1 301 Moved Permanently
+Server: awselb/2.0
+Date: Tue, 27 Aug 2024 04:20:47 GMT
+Content-Type: text/html
+Content-Length: 134
+Connection: keep-alive
+Location: https://quay.io:443/
+ 
+INFO Check DNS query from host...                 
+DEBU api.crc.testing resolved to [127.0.0.1]      
+INFO Verifying validity of the kubelet certificates... 
+DEBU Running SSH command: date --date="$(sudo openssl x509 -in /var/lib/kubelet/pki/kubelet-client-current.pem -noout -enddate | cut -d= -f 2)" --iso-8601=seconds 
+DEBU SSH command results: err: <nil>, output: 2025-07-30T08:18:39+00:00 
+DEBU Running SSH command: date --date="$(sudo openssl x509 -in /var/lib/kubelet/pki/kubelet-server-current.pem -noout -enddate | cut -d= -f 2)" --iso-8601=seconds 
+DEBU SSH command results: err: <nil>, output: 2025-07-30T08:19:10+00:00 
+DEBU Running SSH command: date --date="$(sudo openssl x509 -in /etc/kubernetes/static-pod-resources/kube-apiserver-certs/secrets/aggregator-client/tls.crt -noout -enddate | cut -d= -f 2)" --iso-8601=seconds 
+DEBU SSH command results: err: <nil>, output: 2025-07-30T08:22:18+00:00 
+INFO Starting kubelet service                     
+DEBU Using root access: Executing systemctl daemon-reload command 
+DEBU Running SSH command: sudo systemctl daemon-reload 
+DEBU SSH command results: err: <nil>, output:     
+DEBU Using root access: Executing systemctl start kubelet 
+DEBU Running SSH command: sudo systemctl start kubelet 
+DEBU SSH command results: err: <nil>, output:     
+INFO Waiting for kube-apiserver availability... [takes around 2min] 
+DEBU retry loop: attempt 0                        
+DEBU Running SSH command: timeout 5s oc get nodes --context admin --cluster crc --kubeconfig /opt/kubeconfig 
+DEBU SSH command results: err: Process exited with status 1, output:  
+DEBU E0827 04:20:57.455089    3587 memcache.go:265] couldn't get current server API group list: Get "https://api.crc.testing:6443/api?timeout=32s": dial tcp 192.168.127.2:6443: connect: connection refused
+E0827 04:20:57.455724    3587 memcache.go:265] couldn't get current server API group list: Get "https://api.crc.testing:6443/api?timeout=32s": dial tcp 192.168.127.2:6443: connect: connection refused
+E0827 04:20:57.457517    3587 memcache.go:265] couldn't get current server API group list: Get "https://api.crc.testing:6443/api?timeout=32s": dial tcp 192.168.127.2:6443: connect: connection refused
+E0827 04:20:57.458043    3587 memcache.go:265] couldn't get current server API group list: Get "https://api.crc.testing:6443/api?timeout=32s": dial tcp 192.168.127.2:6443: connect: connection refused
+E0827 04:20:57.459825    3587 memcache.go:265] couldn't get current server API group list: Get "https://api.crc.testing:6443/api?timeout=32s": dial tcp 192.168.127.2:6443: connect: connection refused
+The connection to the server api.crc.testing:6443 was refused - did you specify the right host or port? 
+DEBU error: Temporary error: ssh command error:
+command : timeout 5s oc get nodes --context admin --cluster crc --kubeconfig /opt/kubeconfig
+err     : Process exited with status 1
+ - sleeping 1s 
+DEBU retry loop: attempt 1                        
+DEBU Running SSH command: timeout 5s oc get nodes --context admin --cluster crc --kubeconfig /opt/kubeconfig 
+DEBU SSH command results: err: Process exited with status 1, output:  
+DEBU E0827 04:20:58.531758    3914 memcache.go:265] couldn't get current server API group list: Get "https://api.crc.testing:6443/api?timeout=32s": dial tcp 192.168.127.2:6443: connect: connection refused
+E0827 04:20:58.532271    3914 memcache.go:265] couldn't get current server API group list: Get "https://api.crc.testing:6443/api?timeout=32s": dial tcp 192.168.127.2:6443: connect: connection refused
+E0827 04:20:58.534032    3914 memcache.go:265] couldn't get current server API group list: Get "https://api.crc.testing:6443/api?timeout=32s": dial tcp 192.168.127.2:6443: connect: connection refused
+E0827 04:20:58.534421    3914 memcache.go:265] couldn't get current server API group list: Get "https://api.crc.testing:6443/api?timeout=32s": dial tcp 192.168.127.2:6443: connect: connection refused
+E0827 04:20:58.536201    3914 memcache.go:265] couldn't get current server API group list: Get "https://api.crc.testing:6443/api?timeout=32s": dial tcp 192.168.127.2:6443: connect: connection refused
+The connection to the server api.crc.testing:6443 was refused - did you specify the right host or port? 
+DEBU error: Temporary error: ssh command error:
+command : timeout 5s oc get nodes --context admin --cluster crc --kubeconfig /opt/kubeconfig
+err     : Process exited with status 1
+ - sleeping 1s 
+DEBU retry loop: attempt 2                        
+DEBU Running SSH command: timeout 5s oc get nodes --context admin --cluster crc --kubeconfig /opt/kubeconfig 
+DEBU SSH command results: err: Process exited with status 1, output:  
+DEBU E0827 04:20:59.616886    4173 memcache.go:265] couldn't get current server API group list: Get "https://api.crc.testing:6443/api?timeout=32s": dial tcp 192.168.127.2:6443: connect: connection refused
+E0827 04:20:59.625024    4173 memcache.go:265] couldn't get current server API group list: Get "https://api.crc.testing:6443/api?timeout=32s": dial tcp 192.168.127.2:6443: connect: connection refused
+E0827 04:20:59.625697    4173 memcache.go:265] couldn't get current server API group list: Get "https://api.crc.testing:6443/api?timeout=32s": dial tcp 192.168.127.2:6443: connect: connection refused
+E0827 04:20:59.627474    4173 memcache.go:265] couldn't get current server API group list: Get "https://api.crc.testing:6443/api?timeout=32s": dial tcp 192.168.127.2:6443: connect: connection refused
+E0827 04:20:59.628010    4173 memcache.go:265] couldn't get current server API group list: Get "https://api.crc.testing:6443/api?timeout=32s": dial tcp 192.168.127.2:6443: connect: connection refused
+The connection to the server api.crc.testing:6443 was refused - did you specify the right host or port? 
+DEBU error: Temporary error: ssh command error:
+command : timeout 5s oc get nodes --context admin --cluster crc --kubeconfig /opt/kubeconfig
+err     : Process exited with status 1
+ - sleeping 1s 
+DEBU retry loop: attempt 3                        
+DEBU Running SSH command: timeout 5s oc get nodes --context admin --cluster crc --kubeconfig /opt/kubeconfig 
+DEBU SSH command results: err: Process exited with status 124, output:  
+DEBU                                              
+DEBU error: Temporary error: ssh command error:
+command : timeout 5s oc get nodes --context admin --cluster crc --kubeconfig /opt/kubeconfig
+err     : Process exited with status 124
+ - sleeping 1s 
+DEBU retry loop: attempt 4                        
+DEBU Running SSH command: timeout 5s oc get nodes --context admin --cluster crc --kubeconfig /opt/kubeconfig 
+DEBU SSH command results: err: Process exited with status 124, output:  
+DEBU                                              
+DEBU error: Temporary error: ssh command error:
+command : timeout 5s oc get nodes --context admin --cluster crc --kubeconfig /opt/kubeconfig
+err     : Process exited with status 124
+ - sleeping 1s 
+DEBU retry loop: attempt 5                        
+DEBU Running SSH command: timeout 5s oc get nodes --context admin --cluster crc --kubeconfig /opt/kubeconfig 
+DEBU SSH command results: err: <nil>, output: NAME   STATUS     ROLES                         AGE   VERSION
+crc    NotReady   control-plane,master,worker   28d   v1.29.6+aba1e8d 
+DEBU NAME   STATUS     ROLES                         AGE   VERSION
+crc    NotReady   control-plane,master,worker   28d   v1.29.6+aba1e8d 
+DEBU Waiting for availability of resource type 'configmap' 
+DEBU retry loop: attempt 0                        
+DEBU Running SSH command: timeout 5s oc get configmap --context admin --cluster crc --kubeconfig /opt/kubeconfig 
+DEBU SSH command results: err: <nil>, output: NAME                       DATA   AGE
+kube-root-ca.crt           1      28d
+openshift-service-ca.crt   1      28d 
+DEBU NAME                       DATA   AGE
+kube-root-ca.crt           1      28d
+openshift-service-ca.crt   1      28d 
+DEBU Running SSH command: timeout 30s oc delete -n openshift-machine-config-operator configmap machine-config-controller --context admin --cluster crc --kubeconfig /opt/kubeconfig 
+DEBU SSH command results: err: Process exited with status 1, output:  
+DEBU Waiting for availability of resource type 'lease' 
+DEBU retry loop: attempt 0                        
+DEBU Running SSH command: timeout 5s oc get lease --context admin --cluster crc --kubeconfig /opt/kubeconfig 
+DEBU SSH command results: err: <nil>, output:     
+DEBU                                              
+DEBU Running SSH command: timeout 30s oc delete -A lease --all --context admin --cluster crc --kubeconfig /opt/kubeconfig 
+DEBU SSH command results: err: <nil>, output: lease.coordination.k8s.io "crc" deleted
+lease.coordination.k8s.io "apiserver-yz2phfmetulqy4pemhbirhdnii" deleted
+lease.coordination.k8s.io "cluster-policy-controller-lock" deleted
+lease.coordination.k8s.io "kube-controller-manager" deleted
+lease.coordination.k8s.io "kube-scheduler" deleted
+lease.coordination.k8s.io "openshift-apiserver-operator-lock" deleted
+lease.coordination.k8s.io "cluster-authentication-operator-lock" deleted
+lease.coordination.k8s.io "cluster-machine-approver-leader" deleted
+lease.coordination.k8s.io "version" deleted
+lease.coordination.k8s.io "config-operator-lock" deleted
+lease.coordination.k8s.io "console-operator-lock" deleted
+lease.coordination.k8s.io "openshift-controller-manager-operator-lock" deleted
+lease.coordination.k8s.io "openshift-master-controllers" deleted
+lease.coordination.k8s.io "openshift-cluster-etcd-operator-lock" deleted
+lease.coordination.k8s.io "openshift-master-controllers" deleted
+lease.coordination.k8s.io "kube-apiserver-operator-lock" deleted
+lease.coordination.k8s.io "cert-regeneration-controller-lock" deleted
+lease.coordination.k8s.io "kube-controller-manager-operator-lock" deleted
+lease.coordination.k8s.io "cert-recovery-controller-lock" deleted
+lease.coordination.k8s.io "cluster-policy-controller-lock" deleted
+lease.coordination.k8s.io "openshift-cluster-kube-scheduler-operator-lock" deleted
+lease.coordination.k8s.io "cert-recovery-controller-lock" deleted
+lease.coordination.k8s.io "kube-scheduler" deleted
+lease.coordination.k8s.io "openshift-kube-storage-version-migrator-operator-lock" deleted
+lease.coordination.k8s.io "control-plane-machine-set-leader" deleted
+lease.coordination.k8s.io "machine-api-operator" deleted
+lease.coordination.k8s.io "machine-config" deleted
+lease.coordination.k8s.io "machine-config-controller" deleted
+lease.coordination.k8s.io "marketplace-operator-lock" deleted
+lease.coordination.k8s.io "ovnkube-identity" deleted
+lease.coordination.k8s.io "network-operator-lock" deleted
+lease.coordination.k8s.io "packageserver-controller-lock" deleted
+lease.coordination.k8s.io "ovn-kubernetes-master" deleted
+lease.coordination.k8s.io "openshift-route-controllers" deleted
+lease.coordination.k8s.io "service-ca-operator-lock" deleted
+lease.coordination.k8s.io "service-ca-controller-lock" deleted 
+DEBU Waiting for availability of resource type 'secret' 
+DEBU retry loop: attempt 0                        
+DEBU Running SSH command: timeout 5s oc get secret --context admin --cluster crc --kubeconfig /opt/kubeconfig 
+DEBU SSH command results: err: <nil>, output: NAME                       TYPE                      DATA   AGE
+builder-dockercfg-v9ndx    kubernetes.io/dockercfg   1      28d
+default-dockercfg-6gjlj    kubernetes.io/dockercfg   1      28d
+deployer-dockercfg-9wd4n   kubernetes.io/dockercfg   1      28d 
+DEBU NAME                       TYPE                      DATA   AGE
+builder-dockercfg-v9ndx    kubernetes.io/dockercfg   1      28d
+default-dockercfg-6gjlj    kubernetes.io/dockercfg   1      28d
+deployer-dockercfg-9wd4n   kubernetes.io/dockercfg   1      28d 
+DEBU Running SSH command: <hidden>                
+DEBU SSH command succeeded                        
+INFO Adding user's pull secret to the cluster...  
+DEBU Running SSH command: <hidden>                
+DEBU SSH command succeeded                        
+DEBU Waiting for availability of resource type 'machineconfigs' 
+DEBU retry loop: attempt 0                        
+DEBU Running SSH command: timeout 5s oc get machineconfigs --context admin --cluster crc --kubeconfig /opt/kubeconfig 
+DEBU SSH command results: err: <nil>, output: NAME                                               GENERATEDBYCONTROLLER                      IGNITIONVERSION   AGE
+00-master                                          d70a17fc8fee26d27c0624522f000504838f4b22   3.4.0             28d
+00-worker                                          d70a17fc8fee26d27c0624522f000504838f4b22   3.4.0             28d
+01-master-container-runtime                        d70a17fc8fee26d27c0624522f000504838f4b22   3.4.0             28d
+01-master-kubelet                                  d70a17fc8fee26d27c0624522f000504838f4b22   3.4.0             28d
+01-worker-container-runtime                        d70a17fc8fee26d27c0624522f000504838f4b22   3.4.0             28d
+01-worker-kubelet                                  d70a17fc8fee26d27c0624522f000504838f4b22   3.4.0             28d
+97-master-generated-kubelet                        d70a17fc8fee26d27c0624522f000504838f4b22   3.4.0             28d
+97-worker-generated-kubelet                        d70a17fc8fee26d27c0624522f000504838f4b22   3.4.0             28d
+98-master-generated-kubelet                        d70a17fc8fee26d27c0624522f000504838f4b22   3.4.0             28d
+98-worker-generated-kubelet                        d70a17fc8fee26d27c0624522f000504838f4b22   3.4.0             28d
+99-master-generated-registries                     d70a17fc8fee26d27c0624522f000504838f4b22   3.4.0             28d
+99-master-ssh                                                                                 3.2.0             28d
+99-node-sizing-for-crc                                                                        3.2.0             28d
+99-openshift-machineconfig-master-dummy-networks                                              3.2.0             28d
+99-worker-generated-registries                     d70a17fc8fee26d27c0624522f000504838f4b22   3.4.0             28d
+99-worker-ssh                                                                                 3.2.0             28d
+rendered-master-20e29caf5972fd3b21321cba49a47f61   d70a17fc8fee26d27c0624522f000504838f4b22   3.4.0             27d
+rendered-worker-35a9a3e028ae7ea64cc584956d7d850a   d70a17fc8fee26d27c0624522f000504838f4b22   3.4.0             27d 
+DEBU NAME                                               GENERATEDBYCONTROLLER                      IGNITIONVERSION   AGE
+00-master                                          d70a17fc8fee26d27c0624522f000504838f4b22   3.4.0             28d
+00-worker                                          d70a17fc8fee26d27c0624522f000504838f4b22   3.4.0             28d
+01-master-container-runtime                        d70a17fc8fee26d27c0624522f000504838f4b22   3.4.0             28d
+01-master-kubelet                                  d70a17fc8fee26d27c0624522f000504838f4b22   3.4.0             28d
+01-worker-container-runtime                        d70a17fc8fee26d27c0624522f000504838f4b22   3.4.0             28d
+01-worker-kubelet                                  d70a17fc8fee26d27c0624522f000504838f4b22   3.4.0             28d
+97-master-generated-kubelet                        d70a17fc8fee26d27c0624522f000504838f4b22   3.4.0             28d
+97-worker-generated-kubelet                        d70a17fc8fee26d27c0624522f000504838f4b22   3.4.0             28d
+98-master-generated-kubelet                        d70a17fc8fee26d27c0624522f000504838f4b22   3.4.0             28d
+98-worker-generated-kubelet                        d70a17fc8fee26d27c0624522f000504838f4b22   3.4.0             28d
+99-master-generated-registries                     d70a17fc8fee26d27c0624522f000504838f4b22   3.4.0             28d
+99-master-ssh                                                                                 3.2.0             28d
+99-node-sizing-for-crc                                                                        3.2.0             28d
+99-openshift-machineconfig-master-dummy-networks                                              3.2.0             28d
+99-worker-generated-registries                     d70a17fc8fee26d27c0624522f000504838f4b22   3.4.0             28d
+99-worker-ssh                                                                                 3.2.0             28d
+rendered-master-20e29caf5972fd3b21321cba49a47f61   d70a17fc8fee26d27c0624522f000504838f4b22   3.4.0             27d
+rendered-worker-35a9a3e028ae7ea64cc584956d7d850a   d70a17fc8fee26d27c0624522f000504838f4b22   3.4.0             27d 
+DEBU Running SSH command: timeout 30s oc get machineconfigs 99-master-ssh -o jsonpath='{.spec.config.passwd.users[0].sshAuthorizedKeys[0]}' --context admin --cluster crc --kubeconfig /opt/kubeconfig 
+DEBU SSH command results: err: <nil>, output: ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1MjEAAACFBACrN2vBzWbRdCrItY2iZjm7jc5+Xfw5KaGdMuk4CydqhhH3orRtCgD6oGXzenUB+oaOJgmZcic7RADPEn3kvoitUgAafluK85+DF+mtq/I7sJqFuhQlfhoduzSk6lIbtC0ph3N2P5JeXETmjeyqusxnhjkFx2miXQ55YPGs5ctalT++2g== core 
+INFO Updating SSH key to machine config resource... 
+DEBU Running SSH command: timeout 30s oc patch machineconfig 99-master-ssh -p '{"spec": {"config": {"passwd": {"users": [{"name": "core", "sshAuthorizedKeys": ["ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1MjEAAACFBAHSNkuELBVddZ0b0vZlUnRQFh98RUYMhoy89o/10Qhp81XlrJ1wYdEibxs2Qr4y+gL//iqcHX3Rrwc28GkkQcYZlgGUEXG7tuYUgUYo2QH9aQAbHtkrny/PCTi9TIQVceUt2abLmhglHNbEl7RVj84//1PYJUYyEkGAWIrpnbvzc0V8Iw=="]}]}}}}' --type merge --context admin --cluster crc --kubeconfig /opt/kubeconfig 
+DEBU SSH command results: err: <nil>, output: machineconfig.machineconfiguration.openshift.io/99-master-ssh patched 
+INFO Waiting until the user's pull secret is written to the instance disk... 
+DEBU retry loop: attempt 0                        
+DEBU Running SSH command: <hidden>                
+DEBU SSH command succeeded                        
+DEBU error: Temporary error: pull secret not updated to disk - sleeping 2s 
+DEBU retry loop: attempt 1                        
+DEBU Running SSH command: <hidden>                
+DEBU SSH command succeeded                        
+DEBU error: Temporary error: pull secret not updated to disk - sleeping 2s 
+DEBU retry loop: attempt 2                        
+DEBU Running SSH command: <hidden>                
+DEBU SSH command succeeded                        
+DEBU error: Temporary error: pull secret not updated to disk - sleeping 2s 
+DEBU retry loop: attempt 3                        
+DEBU Running SSH command: <hidden>                
+DEBU SSH command succeeded                        
+DEBU error: Temporary error: pull secret not updated to disk - sleeping 2s 
+DEBU retry loop: attempt 4                        
+DEBU Running SSH command: <hidden>                
+DEBU SSH command succeeded                        
+DEBU error: Temporary error: pull secret not updated to disk - sleeping 2s 
+DEBU retry loop: attempt 5                        
+DEBU Running SSH command: <hidden>                
+DEBU SSH command succeeded                        
+DEBU error: Temporary error: pull secret not updated to disk - sleeping 2s 
+DEBU retry loop: attempt 6                        
+DEBU Running SSH command: <hidden>                
+DEBU SSH command succeeded                        
+DEBU error: Temporary error: pull secret not updated to disk - sleeping 2s 
+DEBU retry loop: attempt 7                        
+DEBU Running SSH command: <hidden>                
+DEBU SSH command succeeded                        
+DEBU error: Temporary error: pull secret not updated to disk - sleeping 2s 
+DEBU retry loop: attempt 8                        
+DEBU Running SSH command: <hidden>                
+DEBU SSH command succeeded                        
+DEBU error: Temporary error: pull secret not updated to disk - sleeping 2s 
+DEBU retry loop: attempt 9                        
+DEBU Running SSH command: <hidden>                
+DEBU SSH command succeeded                        
+DEBU error: Temporary error: pull secret not updated to disk - sleeping 2s 
+DEBU retry loop: attempt 10                       
+DEBU Running SSH command: <hidden>                
+DEBU SSH command succeeded                        
+DEBU error: Temporary error: pull secret not updated to disk - sleeping 2s 
+DEBU retry loop: attempt 11                       
+DEBU Running SSH command: <hidden>                
+DEBU Failed to create new ssh session: ssh: unexpected packet in response to channel open: <nil> 
+DEBU SSH command failed                           
+DEBU non-retriable error: failed to read /var/lib/kubelet/config.json file: ssh command error:
+command : sudo cat /var/lib/kubelet/config.json
+err     : ssh: unexpected packet in response to channel open: <nil>
+:  
+DEBU Running 'sw_vers -productVersion'            
+Failed to update pull secret on the disk: Temporary error: pull secret not updated to disk (x11)
+failed to read /var/lib/kubelet/config.json file: ssh command error:
+command : sudo cat /var/lib/kubelet/config.json
+err     : ssh: unexpected packet in response to channel open: <nil>
+: 
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift % 
+
+### Secret file has not imported upon Troubleshoot ## 
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift % crc config set pull-secret-file $HOME/Projects/openshift/pull-secret.txt 
+Successfully configured pull-secret-file to /Users/ramakrishnansolaik/Projects/openshift/pull-secret.txt
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift % 
+
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift % crc start --log-level debug -p /Users/ramakrishnansolaik/Projects/openshift/pull-secret.txt
+DEBU CRC version: 2.40.0+a14925                   
+DEBU OpenShift version: 4.16.4                    
+DEBU MicroShift version: 4.16.4                   
+DEBU Running 'crc start'                          
+DEBU Total memory of system is 17179869184 bytes  
+DEBU No new version available. The latest version is 2.40.0 
+DEBU Checking file: /Users/ramakrishnansolaik/.crc/machines/crc/.crc-exist 
+DEBU Checking file: /Users/ramakrishnansolaik/.crc/machines/crc/.crc-exist 
+INFO Loading bundle: crc_vfkit_4.16.4_arm64...    
+DEBU Checking file: /Users/ramakrishnansolaik/.crc/machines/crc/.crc-exist 
+INFO A CRC VM for OpenShift 4.16.4 is already running 
+Started the OpenShift cluster.
+
+The server is accessible via web console at:
+  https://console-openshift-console.apps-crc.testing
+
+Log in as administrator:
+  Username: kubeadmin
+  Password: SBtJe-qxLMx-NpD9G-IkuIA
+
+Log in as user:
+  Username: developer
+  Password: developer
+
+Use the 'oc' command line interface:
+  $ eval $(crc oc-env)
+  $ oc login -u developer https://api.crc.testing:6443
+DEBU Running 'sw_vers -productVersion'            
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift % 
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift % crc status --log-level debug                                                               
+DEBU CRC version: 2.40.0+a14925                   
+DEBU OpenShift version: 4.16.4                    
+DEBU MicroShift version: 4.16.4                   
+DEBU Running 'crc status'                         
+CRC VM:          Running
+OpenShift:       Unreachable (v4.16.4)
+RAM Usage:       5.375GB of 10.94GB
+Disk Usage:      24.37GB of 32.68GB (Inside the CRC VM)
+Cache Usage:     38.03GB
+Cache Directory: /Users/ramakrishnansolaik/.crc/cache
+DEBU Running 'sw_vers -productVersion'            
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift % 
+
+
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift % eval $(crc oc-env)
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift % oc login -u developer https://api.crc.testing:6443
+The server uses a certificate signed by an unknown authority.
+You can bypass the certificate check, but any data you send to the server could be intercepted by others.
+Use insecure connections? (y/n): y
+
+WARNING: Using insecure TLS client config. Setting this option is not supported!
+
+Console URL: https://api.crc.testing:6443/console
+Authentication required for https://api.crc.testing:6443 (openshift)
+Username: developer
+Password: 
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Welcome! See 'oc help' to get started.
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift % 
+
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift % crc status --log-level debug                                                               
+DEBU CRC version: 2.40.0+a14925                   
+DEBU OpenShift version: 4.16.4                    
+DEBU MicroShift version: 4.16.4                   
+DEBU Running 'crc status'                         
+CRC VM:          Running
+OpenShift:       Unreachable (v4.16.4)
+RAM Usage:       5.375GB of 10.94GB
+Disk Usage:      24.37GB of 32.68GB (Inside the CRC VM)
+Cache Usage:     38.03GB
+Cache Directory: /Users/ramakrishnansolaik/.crc/cache
+DEBU Running 'sw_vers -productVersion'            
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift % eval $(crc oc-env)
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift % oc login -u developer https://api.crc.testing:6443
+The server uses a certificate signed by an unknown authority.
+You can bypass the certificate check, but any data you send to the server could be intercepted by others.
+Use insecure connections? (y/n): y
+
+WARNING: Using insecure TLS client config. Setting this option is not supported!
+
+Console URL: https://api.crc.testing:6443/console
+Authentication required for https://api.crc.testing:6443 (openshift)
+Username: developer
+Password: 
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Welcome! See 'oc help' to get started.
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift % crc console --credentials
+To login as a regular user, run 'oc login -u developer -p developer https://api.crc.testing:6443'.
+To login as an admin, run 'oc login -u kubeadmin -p SBtJe-qxLMx-NpD9G-IkuIA https://api.crc.testing:6443'
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift %
+
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift % crc status --log-level debug                                                               
+DEBU CRC version: 2.40.0+a14925                   
+DEBU OpenShift version: 4.16.4                    
+DEBU MicroShift version: 4.16.4                   
+DEBU Running 'crc status'                         
+CRC VM:          Running
+OpenShift:       Unreachable (v4.16.4)
+RAM Usage:       6.046GB of 10.94GB
+Disk Usage:      24.41GB of 32.68GB (Inside the CRC VM)
+Cache Usage:     38.03GB
+Cache Directory: /Users/ramakrishnansolaik/.crc/cache
+DEBU Running 'sw_vers -productVersion'            
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift % oc login -u kubeadmin -p SBtJe-qxLMx-NpD9G-IkuIA https://api.crc.testing:6443
+WARNING: Using insecure TLS client config. Setting this option is not supported!
+
+Login failed (401 Unauthorized)
+Verify you have provided the correct credentials.
+(base) ramakrishnansolaik@Ramakrishnans-MacBook-Pro openshift % 
+
